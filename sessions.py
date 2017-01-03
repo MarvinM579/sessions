@@ -1,16 +1,9 @@
 from flask import Flask, render_template, redirect, request, session
-import mysql.connector
+import pg
 
+db = pg.DB(host="localhost", user="postgres", passwd="rocket", dbname="users")
 
 app = Flask('MyApp')
-
-conn = mysql.connector.connect(
-    user='root',
-    password='',
-    host='127.0.0.1',
-    database='Randoms')
-
-cur = conn.cursor()
 
 
 @app.route('/')
@@ -27,13 +20,17 @@ def login():
 def submit_login():
     username = request.form.get('username')
     password = request.form.get('password')
-    query = ("SELECT * FROM tbl_user WHERE user_username = '%s'" % username)
-    cur.execute(query)
-    if password == 'user_password':
-        session['username'] = username
+    query = db.query("select * from myuser where username = '%s'" % username)
+    result_list = query.namedresult()
+    if len(result_list) > 0:
+        user = result_list[0]
+        if user.password == password:
+            session['username'] = user.username
+            return redirect('/')
+        else:
+            return redirect('/login')
     else:
         return redirect('/login')
-    return redirect('/')
 
 app.secret_key = 'hello happy kitty'
 
