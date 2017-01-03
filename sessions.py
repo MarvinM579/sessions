@@ -27,7 +27,7 @@ def submit_login():
     if len(result_list) > 0:
         user = result_list[0]
         if user.password == password:
-            session['username'] = user.username
+            session['name'] = user.name
             # loggedIn = True
             return redirect('/')
         else:
@@ -39,7 +39,7 @@ def submit_login():
 
 @app.route('/logout', methods=['POST'])
 def logout():
-    del session['username']
+    del session['name']
     # loggedIn = False
     return redirect('/')
 
