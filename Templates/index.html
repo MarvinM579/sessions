@@ -2,4 +2,11 @@
 <p>
     Hello, {{session['username'] or 'there'}}!
 </p>
-<p><a href="login">Login</a></p>
+{% if not session['username'] %}
+    <p><a href="login">Login</a></p>
+
+{% else %}
+    <form action="logout" method="post">
+      <input class="btn btn-default" type="submit" value="Logout">
+    </form>
+{% endif %}
