@@ -16,7 +16,7 @@ def login():
     return render_template("login.html")
 
 
-@app.route('/submit_login', methods=['POST'])
+@app.route('/submit_login', methods=['POST', 'GET'])
 def submit_login():
     username = request.form.get('username')
     password = request.form.get('password')
@@ -26,7 +26,6 @@ def submit_login():
         user = result_list[0]
         if user.password == password:
             session['name'] = user.name
-            # loggedIn = True
             return redirect('/')
         else:
             return redirect('/login')
@@ -34,7 +33,12 @@ def submit_login():
         return redirect('/login')
 
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout_page')
+def logout_page():
+    return "<h1>Goodbye!</h1>"
+
+
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     del session['name']
     return redirect('/')
