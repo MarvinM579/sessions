@@ -5,8 +5,6 @@ db = pg.DB(host="localhost", user="postgres", passwd="rocket", dbname="users")
 
 app = Flask('MyApp')
 
-# loggedIn = False
-
 
 @app.route('/')
 def index():
@@ -31,7 +29,6 @@ def submit_login():
             # loggedIn = True
             return redirect('/')
         else:
-            # loggedIn = False
             return redirect('/login')
     else:
         return redirect('/login')
@@ -40,7 +37,6 @@ def submit_login():
 @app.route('/logout', methods=['POST'])
 def logout():
     del session['name']
-    # loggedIn = False
     return redirect('/')
 
 app.secret_key = 'hello happy kitty'

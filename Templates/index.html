@@ -1,3 +1,5 @@
+{% extends "layout.html" %}
+{% block body %}
 <h1>Welcome</h1>
 <p>
     Hello, {{session['name'] or 'there'}}!
@@ -10,3 +12,4 @@
       <input class="btn btn-default" type="submit" value="Logout">
     </form>
 {% endif %}
+{% endblock %}
