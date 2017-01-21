@@ -3,7 +3,8 @@
 <div class="jumbotron">
     <h1>Welcome</h1>
     <p>
-        Hello, {{session['name'] or 'there'}}!
+        Hello, {{session['name'] or 'there'}}!<br />
+        Welcome!
     </p>
     {% if not session['name'] %}
     <a href="login"><button class="btn btn-primary btn-md">Log In</button></a>
